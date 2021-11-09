@@ -23,12 +23,12 @@ def get_all_svm(request):
         # bom0.save()
 
         for svm in svms:
+            #dr_rel = svm.svm_data_recovery_serializer
             svm_json.append(svm.serialize)
 
-        #return JsonResponse(svm_json, safe=False)
-        serialized_rels = SVM.serialize_collection
 
-    return JsonResponse(serialized_rels, safe=False)
+        return JsonResponse(svm_json, safe=False)
+
 
 
 @csrf_exempt
