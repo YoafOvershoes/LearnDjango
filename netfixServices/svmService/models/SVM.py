@@ -14,7 +14,8 @@ class SVM(StructuredNode):
     name = StringProperty(unique_index=True)
     is_active = BooleanProperty(default=True)
     inCluster = RelationshipTo(NetappCluster, 'inCluster')
-    drSVM = RelationshipTo(SVM, 'DataRecovery', model=DataRecoveryRelation)
+    site = StringProperty()
+    drSVM = RelationshipTo('SVM', 'DataRecovery', model=DataRecoveryRelation)
 
     # Serializing the svm node, because noemodel doesn't have a serializeable built in function
     @property
@@ -32,7 +33,7 @@ class SVM(StructuredNode):
 
     @property
     def svm_data_recovery_serializer(self):
-        results, columns = self.cypher("MATCH (a) WHERE id(a)=$self MATCH (a)-[r {name: 'DataRecovery'}]->(b) RETURN b")
+        results, columns = self.cypher("MATCH (a) WHERE id(a)=$self MATCH (a)-[r: DataRecovery]->(b) RETURN b")
         query_result = [self.inflate(row[0]) for row in results]
 
         #data_recovery = []# TODO: if svm can have 2 relations return array

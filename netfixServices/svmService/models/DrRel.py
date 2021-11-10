@@ -1,5 +1,10 @@
-from neomodel import StructuredRel, StringProperty
+from datetime import datetime
+
+import pytz
+from neomodel import StructuredRel, DateTimeProperty
 
 
 class DataRecoveryRelation(StructuredRel):
-    dr_site = StringProperty()
+    since = DateTimeProperty(
+        default=lambda: datetime.now(pytz.utc)
+    )
