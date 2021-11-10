@@ -1,0 +1,4 @@
+django
+neomodel
+environ
+psycopg2 #remove if postgresql is not used!
