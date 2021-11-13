@@ -13,8 +13,6 @@ class NetappCluster(StructuredNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'name': self.name,
                 'mgmtAddress': self.mgmtAddress,
-            },
         }
