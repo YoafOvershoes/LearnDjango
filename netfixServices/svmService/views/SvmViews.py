@@ -52,7 +52,10 @@ def create(request):
         # svm.create_or_update() # TODO: CHECK WHY IT DOES NOT WORK!
         svm.save()
         response = {"id": svm.id}
-        print(env(environment + "_" + site))
+        cluster_name = env(environment + "_" + site)
+        cluster = NetappCluster.nodes.get(name=cluster_name)
+        in_cluster_rel = svm.inCluster.connect(cluster)
+        in_cluster_rel.save()
     except SVM.DoesNotExist:
         return JsonResponse({"error": "svm does not exist!"})
     except:
